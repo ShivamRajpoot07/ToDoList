@@ -9,6 +9,18 @@ const app = express();
 const port = Number(process.env.PORT) || 3000;
 
 async function ensureTaskSchema() {
+  await db.query(
+    `CREATE TABLE IF NOT EXISTS tasks (
+      id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      title VARCHAR(255) NOT NULL,
+      description TEXT NOT NULL,
+      status ENUM('Pending', 'Completed') NOT NULL DEFAULT 'Pending',
+      is_daily TINYINT(1) NOT NULL DEFAULT 0,
+      completed_on DATE NULL,
+      created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )`
+  );
+
   const [columns] = await db.execute(
     `SELECT COLUMN_NAME
      FROM INFORMATION_SCHEMA.COLUMNS
