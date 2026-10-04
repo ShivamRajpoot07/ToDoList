@@ -1,0 +1,5 @@
+USE todo_app;
+
+ALTER TABLE tasks
+  ADD COLUMN is_daily TINYINT(1) NOT NULL DEFAULT 0,
+  ADD COLUMN completed_on DATE NULL;
