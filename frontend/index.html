@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="StudyFlow is a calm workspace for planning your semester."
+    />
+    <title>StudyFlow | Student Workspace</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <script src="dashboard.js" defer></script>
+    <script src="academic.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="sf-layout">
+      <aside class="sf-sidebar" id="sidebar">
+        <a class="sf-brand" href="#dashboard" data-view-link="dashboard">
+          <span class="sf-brand-mark" aria-hidden="true">S</span>
+          <span>
+            <strong>StudyFlow</strong>
+            <small>Student Workspace</small>
+          </span>
+        </a>
+
+        <div class="sf-nav-label">WORKSPACE</div>
+        <nav class="sf-navigation" aria-label="Main navigation">
+          <a class="sf-nav-link is-active" href="#dashboard" data-view-link="dashboard" aria-current="page">
+            <span class="sf-nav-icon" aria-hidden="true">⌂</span>Dashboard
+          </a>
+          <a class="sf-nav-link" href="#calendar" data-view-link="calendar">
+            <span class="sf-nav-icon" aria-hidden="true">▦</span>Calendar
+          </a>
+          <a class="sf-nav-link" href="#tasks" data-view-link="tasks">
+            <span class="sf-nav-icon" aria-hidden="true">☷</span>Tasks
+          </a>
+          <a class="sf-nav-link" href="#subjects" data-view-link="subjects">
+            <span class="sf-nav-icon" aria-hidden="true">◈</span>Subjects
+          </a>
+          <a class="sf-nav-link" href="#exams" data-view-link="exams">
+            <span class="sf-nav-icon" aria-hidden="true">▤</span>Exams
+          </a>
+          <a class="sf-nav-link" href="#notes" data-view-link="notes">
+            <span class="sf-nav-icon" aria-hidden="true">▧</span>Notes
+          </a>
+          <a class="sf-nav-link" href="#resources" data-view-link="resources">
+            <span class="sf-nav-icon" aria-hidden="true">↗</span>Resources
+          </a>
+          <a class="sf-nav-link" href="#progress" data-view-link="progress">
+            <span class="sf-nav-icon" aria-hidden="true">◔</span>Progress
+          </a>
+        </nav>
+
+        <div class="sf-sidebar-bottom">
+          <a class="sf-nav-link" href="#settings" data-view-link="settings">
+            <span class="sf-nav-icon" aria-hidden="true">⚙</span>Settings
+          </a>
+          <div class="sf-sidebar-profile">
+            <span class="sf-avatar" aria-hidden="true">S</span>
+            <span><strong id="sidebar-student-name">Student</strong><small>My study space</small></span>
+            <span class="sf-online-dot" aria-label="Online"></span>
+          </div>
+        </div>
+      </aside>
+
+      <button class="sf-sidebar-scrim" id="sidebar-scrim" type="button" aria-label="Close navigation"></button>
+
+      <main class="sf-main">
+        <header class="sf-topbar">
+          <div class="sf-topbar-left">
+            <button class="sf-icon-button sf-menu-button" id="menu-button" type="button" aria-label="Open navigation" aria-expanded="false">
+              <span aria-hidden="true">☰</span>
+            </button>
+            <span class="sf-breadcrumb">Student Workspace <span aria-hidden="true">/</span> <strong id="current-section-name">Dashboard</strong></span>
+          </div>
+          <div class="sf-topbar-actions">
+            <div class="sf-notification-wrap">
+              <button class="sf-icon-button sf-notification-button" id="notification-button" type="button" aria-label="Show notifications" aria-expanded="false">
+                <span aria-hidden="true">♧</span><i></i>
+              </button>
+              <div class="sf-notification-popover" id="notification-popover" hidden>
+                <strong>You're all set</strong>
+                <p>Study reminders will appear here as academic features are added.</p>
+              </div>
+            </div>
+            <label class="sf-semester-control">
+              <span class="visually-hidden">Semester</span>
+              <select id="top-semester-select" aria-label="Select semester">
+                <option>Spring 2026</option>
+                <option>Summer 2026</option>
+                <option selected>Fall 2026</option>
+                <option>Spring 2027</option>
+              </select>
+              <span aria-hidden="true">⌄</span>
+            </label>
+          </div>
+        </header>
+
+        <div class="sf-page-content">
+          <section class="sf-view is-visible" data-view="dashboard" aria-labelledby="welcome-heading">
+            <div class="sf-welcome-row">
+              <div>
+                <p class="sf-kicker">MONDAY, OCTOBER 5</p>
+                <h1 id="welcome-heading">Welcome back, <span id="welcome-student-name">Student</span> <span class="sf-wave" aria-hidden="true">✦</span></h1>
+                <p class="sf-subtitle">Here's what's happening with your semester.</p>
+              </div>
+              <button class="sf-primary-button" id="dashboard-add-task" type="button"><span aria-hidden="true">＋</span> Add a task</button>
+            </div>
+
+            <div class="sf-phase-note"><span aria-hidden="true">i</span> Dashboard preview: these academic figures and events are sample data for Phase 1.</div>
+
+            <div class="sf-summary-grid" aria-label="Semester summary">
+              <article class="sf-summary-card">
+                <div class="sf-summary-top"><span class="sf-summary-label">Classes</span><span class="sf-summary-icon sf-icon-violet" aria-hidden="true">▦</span></div>
+                <strong class="sf-summary-value" id="summary-classes">—</strong>
+                <span class="sf-summary-caption">This week <span class="sf-trend">↗ your schedule</span></span>
+                <span class="sf-card-glow sf-glow-violet"></span>
+              </article>
+              <article class="sf-summary-card">
+                <div class="sf-summary-top"><span class="sf-summary-label">Tasks</span><span class="sf-summary-icon sf-icon-blue" aria-hidden="true">☷</span></div>
+                <strong class="sf-summary-value" id="summary-tasks">—</strong>
+                <span class="sf-summary-caption">Pending <span class="sf-trend">keep it moving</span></span>
+                <span class="sf-card-glow sf-glow-blue"></span>
+              </article>
+              <article class="sf-summary-card">
+                <div class="sf-summary-top"><span class="sf-summary-label">Study Hours</span><span class="sf-summary-icon sf-icon-cyan" aria-hidden="true">◷</span></div>
+                <strong class="sf-summary-value" id="summary-hours">—</strong>
+                <span class="sf-summary-caption">This week <span class="sf-trend">great momentum</span></span>
+                <span class="sf-card-glow sf-glow-cyan"></span>
+              </article>
+              <article class="sf-summary-card">
+                <div class="sf-summary-top"><span class="sf-summary-label">Progress</span><span class="sf-summary-icon sf-icon-pink" aria-hidden="true">◔</span></div>
+                <strong class="sf-summary-value" id="summary-progress">—</strong>
+                <span class="sf-summary-caption">Overall <span class="sf-trend">semester progress</span></span>
+                <span class="sf-progress-track"><span id="summary-progress-bar"></span></span>
+                <span class="sf-card-glow sf-glow-pink"></span>
+              </article>
+            </div>
+
+            <div class="sf-dashboard-grid">
+              <section class="sf-panel sf-schedule-panel">
+                <div class="sf-panel-header">
+                  <div><h2>Today's Schedule</h2><p>Your classes at a glance</p></div>
+                  <button class="sf-subtle-button" type="button" data-open-view="calendar">Full calendar <span aria-hidden="true">↗</span></button>
+                </div>
+                <div class="sf-schedule-list" id="schedule-list"></div>
+              </section>
+
+              <section class="sf-panel sf-exams-panel">
+                <div class="sf-panel-header">
+                  <div><h2>Upcoming Exams</h2><p>A little prep goes a long way</p></div>
+                  <button class="sf-more-button" type="button" data-open-view="exams" aria-label="View all exams">•••</button>
+                </div>
+                <div class="sf-exam-list" id="exam-list"></div>
+                <button class="sf-panel-footer-link" type="button" data-open-view="exams">View all exams <span aria-hidden="true">→</span></button>
+              </section>
+
+              <section class="sf-panel sf-week-panel">
+                <div class="sf-panel-header">
+                  <div><h2>Weekly Study Progress</h2><p>Hours you spent studying this week</p></div>
+                  <span class="sf-week-total" id="week-total">—<small> hrs</small></span>
+                </div>
+                <div class="sf-chart" id="weekly-chart" role="img" aria-label="Weekly study hours bar chart"></div>
+                <div class="sf-chart-legend"><span><i></i> Focus hours</span><span class="sf-chart-footnote">Sample preview</span></div>
+              </section>
+
+              <section class="sf-panel sf-focus-panel">
+                <div class="sf-panel-header">
+                  <div><h2>Focus Timer</h2><p>Make space for focused work</p></div>
+                  <span class="sf-focus-tag"><i></i> POMODORO</span>
+                </div>
+                <div class="sf-timer-ring" id="timer-ring" style="--timer-progress: 100%">
+                  <div class="sf-timer-inner">
+                    <span class="sf-timer-caption" id="timer-caption">FOCUS SESSION</span>
+                    <strong id="timer-display">25:00</strong>
+                    <span class="sf-timer-hint">One thing at a time</span>
+                  </div>
+                </div>
+                <div class="sf-timer-controls">
+                  <button class="sf-primary-button sf-timer-start" id="timer-start" type="button">Start focus session</button>
+                  <button class="sf-secondary-button" id="timer-pause" type="button" disabled>Pause</button>
+                  <button class="sf-secondary-button" id="timer-reset" type="button">Reset</button>
+                </div>
+                <p class="sf-timer-note">25 min focus · 5 min break</p>
+              </section>
+            </div>
+          </section>
+
+          <section class="sf-view sf-tasks-view" data-view="tasks" aria-labelledby="tasks-page-heading" hidden>
+            <div class="sf-page-heading">
+              <div><p class="sf-kicker">YOUR WORKSPACE</p><h1 id="tasks-page-heading">My Tasks</h1><p class="sf-subtitle">Make space for what matters today.</p></div>
+              <button class="sf-primary-button" id="add-task-button" type="button"><span aria-hidden="true">＋</span>Add Task</button>
+            </div>
+            <section class="sf-task-overview" aria-label="Today's task progress">
+              <div class="sf-task-overview-top">
+                <div><p class="sf-kicker">YOUR DAY</p><h2 id="task-today-date">Today</h2></div>
+                <span class="sf-task-overview-icon" aria-hidden="true">✦</span>
+              </div>
+              <div class="sf-task-progress-copy"><strong id="task-progress-count">0 of 0 complete</strong><span id="task-progress-percent">0%</span></div>
+              <div class="sf-task-progress-track" role="progressbar" aria-label="Today's completed tasks" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="task-progress-bar"><span></span></div>
+              <p class="sf-task-overview-note" id="task-progress-note">Small steps add up. Pick one task to get started.</p>
+            </section>
+            <section class="task-section" aria-labelledby="tasks-heading">
+              <div class="section-heading">
+                <div><h2 id="tasks-heading">Your tasks</h2><p>Daily routines reset automatically each day.</p></div>
+                <label class="search-box">
+                  <span class="search-icon" aria-hidden="true">⌕</span>
+                  <span class="visually-hidden">Search tasks by title</span>
+                  <input id="search-input" type="search" placeholder="Search tasks..." autocomplete="off" />
+                  <kbd>/</kbd>
+                </label>
+              </div>
+              <div class="sf-task-toolbar">
+                <div class="sf-task-filters" role="group" aria-label="Filter tasks">
+                  <button class="sf-task-filter is-active" type="button" data-task-filter="all" aria-pressed="true">All <span id="task-count-all">0</span></button>
+                  <button class="sf-task-filter" type="button" data-task-filter="pending" aria-pressed="false">To do <span id="task-count-pending">0</span></button>
+                  <button class="sf-task-filter" type="button" data-task-filter="completed" aria-pressed="false">Completed <span id="task-count-completed">0</span></button>
+                  <button class="sf-task-filter" type="button" data-task-filter="daily" aria-pressed="false">Daily <span id="task-count-daily">0</span></button>
+                </div>
+              </div>
+              <div id="message" class="message" role="status" hidden></div>
+              <div id="task-list" class="task-list" aria-live="polite"></div>
+            </section>
+          </section>
+
+          <section class="sf-view sf-module-view" data-view="calendar" aria-labelledby="calendar-heading" hidden>
+            <div class="sf-page-heading">
+              <div><p class="sf-kicker">YOUR SCHEDULE</p><h1 id="calendar-heading">Calendar</h1><p class="sf-subtitle">Plan classes, study blocks, and important dates.</p></div>
+              <button class="sf-primary-button" type="button" data-new-entry="calendar"><span aria-hidden="true">＋</span>Add event</button>
+            </div>
+            <div class="sf-module-grid sf-calendar-layout">
+              <section class="sf-module-card" aria-label="Calendar month">
+                <div class="sf-calendar-toolbar">
+                  <button class="sf-secondary-button" id="calendar-previous" type="button" aria-label="Previous month">←</button>
+                  <h2 id="calendar-month-label"></h2>
+                  <button class="sf-secondary-button" id="calendar-next" type="button" aria-label="Next month">→</button>
+                  <button class="sf-subtle-button" id="calendar-today" type="button">Today</button>
+                </div>
+                <div class="sf-calendar-weekdays" aria-hidden="true">
+                  <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                </div>
+                <div class="sf-calendar-grid" id="calendar-grid" aria-label="Month dates"></div>
+              </section>
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2 id="calendar-selected-date">Selected day</h2><p>Events on this date</p></div></div>
+                <p class="sf-module-status" id="calendar-status" role="status" aria-live="polite"></p>
+                <div class="sf-entry-list" id="calendar-list"></div>
+                <form class="sf-module-form" id="calendar-form" data-collection="calendar">
+                  <h3 id="calendar-form-heading">Add an event</h3>
+                  <input type="hidden" name="id" />
+                  <label class="sf-setting-field">Event name<input name="title" type="text" maxlength="100" required placeholder="e.g. Biology lecture" /></label>
+                  <div class="sf-form-row">
+                    <label class="sf-setting-field">Date<input name="date" type="date" required /></label>
+                    <label class="sf-setting-field">Time<input name="time" type="time" /></label>
+                  </div>
+                  <div class="sf-form-row">
+                    <label class="sf-setting-field">Type<select name="type"><option>Class</option><option>Study</option><option>Assignment</option><option>Other</option></select></label>
+                    <label class="sf-setting-field">Location<input name="location" type="text" maxlength="80" placeholder="Room or link" /></label>
+                  </div>
+                  <div class="sf-form-actions"><button class="sf-primary-button" type="submit">Save event</button><button class="sf-secondary-button" type="button" data-cancel-form="calendar" hidden>Cancel edit</button></div>
+                </form>
+              </section>
+            </div>
+          </section>
+
+          <section class="sf-view sf-module-view" data-view="subjects" aria-labelledby="subjects-heading" hidden>
+            <div class="sf-page-heading">
+              <div><p class="sf-kicker">YOUR COURSEWORK</p><h1 id="subjects-heading">Subjects</h1><p class="sf-subtitle">Organize your courses and set what needs attention first.</p></div>
+            </div>
+            <div class="sf-module-grid">
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2 id="subjects-form-heading">Add a subject</h2><p>Set a priority to keep your workload organized.</p></div></div>
+                <p class="sf-module-status" id="subjects-status" role="status" aria-live="polite"></p>
+                <form class="sf-module-form" id="subjects-form" data-collection="subjects">
+                  <input type="hidden" name="id" />
+                  <label class="sf-setting-field">Subject name<input name="title" type="text" maxlength="80" required placeholder="e.g. Data Structures" /></label>
+                  <label class="sf-setting-field">Description <span class="sf-optional-label">Optional</span><textarea name="description" rows="3" maxlength="300" placeholder="Instructor, room, or a short note"></textarea></label>
+                  <label class="sf-setting-field">Priority<select name="priority"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></label>
+                  <div class="sf-form-actions"><button class="sf-primary-button" type="submit">Save subject</button><button class="sf-secondary-button" type="button" data-cancel-form="subjects" hidden>Cancel edit</button></div>
+                </form>
+              </section>
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2>Your subjects</h2><p>Saved only in this browser.</p></div><span class="sf-module-count" id="subjects-count">0</span></div>
+                <div class="sf-entry-list" id="subjects-list"></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="sf-view sf-module-view" data-view="exams" aria-labelledby="exams-heading" hidden>
+            <div class="sf-page-heading">
+              <div><p class="sf-kicker">BE READY</p><h1 id="exams-heading">Exams</h1><p class="sf-subtitle">Keep exam dates and preparation details in one place.</p></div>
+              <button class="sf-primary-button" type="button" data-new-entry="exams"><span aria-hidden="true">＋</span>Add exam</button>
+            </div>
+            <div class="sf-module-grid">
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2 id="exams-form-heading">Add an exam</h2><p>Track the date and the subject you are preparing for.</p></div></div>
+                <p class="sf-module-status" id="exams-status" role="status" aria-live="polite"></p>
+                <form class="sf-module-form" id="exams-form" data-collection="exams">
+                  <input type="hidden" name="id" />
+                  <label class="sf-setting-field">Exam name<input name="title" type="text" maxlength="100" required placeholder="e.g. Midterm exam" /></label>
+                  <label class="sf-setting-field">Subject<input name="subject" type="text" maxlength="80" placeholder="e.g. Data Structures" /></label>
+                  <div class="sf-form-row">
+                    <label class="sf-setting-field">Date<input name="date" type="date" required /></label>
+                    <label class="sf-setting-field">Time<input name="time" type="time" /></label>
+                  </div>
+                  <label class="sf-setting-field">Notes <span class="sf-optional-label">Optional</span><textarea name="description" rows="3" maxlength="300" placeholder="Topics to review"></textarea></label>
+                  <div class="sf-form-actions"><button class="sf-primary-button" type="submit">Save exam</button><button class="sf-secondary-button" type="button" data-cancel-form="exams" hidden>Cancel edit</button></div>
+                </form>
+              </section>
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2>Upcoming exams</h2><p>Sorted by exam date.</p></div><span class="sf-module-count" id="exams-count">0</span></div>
+                <div class="sf-entry-list" id="exams-list"></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="sf-view sf-module-view" data-view="notes" aria-labelledby="notes-heading" hidden>
+            <div class="sf-page-heading">
+              <div><p class="sf-kicker">YOUR STUDY SPACE</p><h1 id="notes-heading">Notes</h1><p class="sf-subtitle">Capture ideas and find them again when you need them.</p></div>
+            </div>
+            <div class="sf-module-grid">
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2 id="notes-form-heading">Create a note</h2><p>Notes are saved in this browser.</p></div></div>
+                <p class="sf-module-status" id="notes-status" role="status" aria-live="polite"></p>
+                <form class="sf-module-form" id="notes-form" data-collection="notes">
+                  <input type="hidden" name="id" />
+                  <label class="sf-setting-field">Title<input name="title" type="text" maxlength="100" required placeholder="Note title" /></label>
+                  <label class="sf-setting-field">Subject <span class="sf-optional-label">Optional</span><input name="subject" type="text" maxlength="80" placeholder="e.g. Biology" /></label>
+                  <label class="sf-setting-field">Note<textarea name="content" rows="7" maxlength="5000" required placeholder="Write your notes here..."></textarea></label>
+                  <div class="sf-form-actions"><button class="sf-primary-button" type="submit">Save note</button><button class="sf-secondary-button" type="button" data-cancel-form="notes" hidden>Cancel edit</button></div>
+                </form>
+              </section>
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2>Your notes</h2><p>Search by title, subject, or text.</p></div><span class="sf-module-count" id="notes-count">0</span></div>
+                <label class="sf-setting-field sf-module-search">Search notes<input id="notes-search" type="search" placeholder="Type to filter notes" /></label>
+                <div class="sf-entry-list" id="notes-list"></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="sf-view sf-module-view" data-view="resources" aria-labelledby="resources-heading" hidden>
+            <div class="sf-page-heading">
+              <div><p class="sf-kicker">USEFUL LINKS</p><h1 id="resources-heading">Resources</h1><p class="sf-subtitle">Keep study links and reference material easy to find.</p></div>
+            </div>
+            <div class="sf-module-grid">
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2 id="resources-form-heading">Add a resource</h2><p>Use a complete http:// or https:// link.</p></div></div>
+                <p class="sf-module-status" id="resources-status" role="status" aria-live="polite"></p>
+                <form class="sf-module-form" id="resources-form" data-collection="resources">
+                  <input type="hidden" name="id" />
+                  <label class="sf-setting-field">Resource name<input name="title" type="text" maxlength="100" required placeholder="e.g. Lecture slides" /></label>
+                  <label class="sf-setting-field">URL<input name="url" type="url" maxlength="500" required placeholder="https://example.com" /></label>
+                  <label class="sf-setting-field">Subject <span class="sf-optional-label">Optional</span><input name="subject" type="text" maxlength="80" placeholder="e.g. Data Structures" /></label>
+                  <label class="sf-setting-field">Description <span class="sf-optional-label">Optional</span><textarea name="description" rows="3" maxlength="300" placeholder="What is this resource useful for?"></textarea></label>
+                  <div class="sf-form-actions"><button class="sf-primary-button" type="submit">Save resource</button><button class="sf-secondary-button" type="button" data-cancel-form="resources" hidden>Cancel edit</button></div>
+                </form>
+              </section>
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2>Saved resources</h2><p>Links open in a new tab.</p></div><span class="sf-module-count" id="resources-count">0</span></div>
+                <div class="sf-entry-list" id="resources-list"></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="sf-view sf-placeholder-view" data-view="placeholder" hidden aria-live="polite">
+            <div class="sf-placeholder-card">
+              <span class="sf-placeholder-icon" id="placeholder-icon" aria-hidden="true">✦</span>
+              <p class="sf-kicker">COMING IN A LATER PHASE</p>
+              <h1 id="placeholder-title">Calendar</h1>
+              <p id="placeholder-description">This section is part of the StudyFlow plan. For now, your dashboard and MySQL-backed Tasks are ready to use.</p>
+              <button class="sf-secondary-button" type="button" data-open-view="dashboard">Back to dashboard</button>
+            </div>
+          </section>
+
+          <section class="sf-view sf-settings-view" data-view="settings" hidden aria-labelledby="settings-heading">
+            <div class="sf-page-heading"><div><p class="sf-kicker">MAKE IT YOURS</p><h1 id="settings-heading">Settings</h1><p class="sf-subtitle">Personalize your student workspace on this device.</p></div></div>
+            <form class="sf-settings-card" id="settings-form">
+              <label class="sf-setting-field">Student name<input id="settings-student-name" type="text" maxlength="40" placeholder="Student" /></label>
+              <label class="sf-setting-field">Semester<select id="settings-semester"><option>Spring 2026</option><option>Summer 2026</option><option>Fall 2026</option><option>Spring 2027</option></select></label>
+              <label class="sf-setting-field">Theme<select id="settings-theme"><option value="dark">Dark</option><option value="light">Light</option></select></label>
+              <label class="sf-setting-field">Weekly study goal (hours)<input id="settings-weekly-goal" type="number" min="1" max="100" step="0.5" required /></label>
+              <div class="sf-settings-actions"><p id="settings-status" role="status"></p><button class="sf-primary-button" type="submit">Save preferences</button></div>
+            </form>
+          </section>
+
+          <section class="sf-view sf-module-view sf-progress-view" data-view="progress" aria-labelledby="progress-heading" hidden>
+            <div class="sf-page-heading">
+              <div><p class="sf-kicker">YOUR MOMENTUM</p><h1 id="progress-heading">Progress</h1><p class="sf-subtitle">A look at your focus time and weekly study goal.</p></div>
+            </div>
+            <p class="sf-module-status" id="progress-status" role="status" aria-live="polite"></p>
+            <div class="sf-progress-summary" aria-label="Weekly study summary">
+              <article class="sf-module-card sf-progress-stat"><span>This week</span><strong id="progress-week-hours">0h</strong><small>Focus time completed</small></article>
+              <article class="sf-module-card sf-progress-stat"><span>Sessions</span><strong id="progress-session-count">0</strong><small>Completed focus sessions</small></article>
+              <article class="sf-module-card sf-progress-stat"><span>Weekly goal</span><strong id="progress-goal-value">10h</strong><small id="progress-goal-caption">0% complete</small></article>
+            </div>
+            <div class="sf-module-grid sf-progress-grid">
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2>Study time this week</h2><p id="progress-week-range">Hours from completed focus sessions</p></div></div>
+                <div class="sf-progress-chart" id="progress-chart" role="img" aria-label="Study time by day this week"></div>
+                <div class="sf-progress-goal-track" aria-label="Weekly goal progress"><span id="progress-goal-bar"></span></div>
+                <p class="sf-progress-note" id="progress-goal-note"></p>
+              </section>
+              <section class="sf-module-card">
+                <div class="sf-module-card-heading"><div><h2>Recent sessions</h2><p>Your latest completed focus blocks.</p></div></div>
+                <div class="sf-entry-list" id="progress-sessions"></div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <dialog class="task-dialog" id="task-dialog" aria-labelledby="dialog-title">
+      <form id="task-form">
+        <div class="dialog-header">
+          <div><p class="eyebrow">TASK DETAILS</p><h2 id="dialog-title">Add a task</h2></div>
+          <button class="icon-button close-dialog" type="button" aria-label="Close form">×</button>
+        </div>
+        <input id="task-id" name="id" type="hidden" />
+        <label class="form-field" for="task-title"><span>Task title <span class="required-mark">*</span></span><input id="task-title" name="title" type="text" maxlength="255" placeholder="What needs to be done?" required /></label>
+        <label class="form-field" for="task-description"><span>Description <span class="optional-label">Optional</span></span><textarea id="task-description" name="description" rows="4" placeholder="Add a few details..."></textarea></label>
+        <label class="sf-daily-repeat" for="task-is-daily">
+          <input id="task-is-daily" name="is_daily" type="checkbox" />
+          <span class="sf-daily-repeat-copy"><strong>Repeat every day</strong><small>Comes back automatically tomorrow</small></span>
+          <span class="sf-daily-repeat-mark" aria-hidden="true">↻</span>
+        </label>
+        <label class="form-field" for="task-status"><span>Status</span><select id="task-status" name="status"><option value="Pending">Pending</option><option value="Completed">Completed</option></select></label>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <div class="dialog-actions"><button class="secondary-button close-dialog" type="button">Cancel</button><button class="primary-button" id="save-task-button" type="submit">Save task</button></div>
+      </form>
+    </dialog>
+
+    <dialog class="sf-complete-dialog" id="focus-complete-dialog" aria-labelledby="focus-complete-title">
+      <form method="dialog">
+        <span class="sf-complete-icon" aria-hidden="true">✓</span>
+        <p class="sf-kicker">NICE WORK</p>
+        <h2 id="focus-complete-title">Focus session completed!</h2>
+        <label class="sf-setting-field" for="focus-subject">What did you study?
+          <select id="focus-subject"><option value="" selected>No subject selected</option><option>Data Structures</option><option>Operating Systems</option><option>Database Systems</option><option>Web Development</option></select>
+        </label>
+        <p class="sf-session-notice">Your completed focus session will be added to Progress on this device.</p>
+        <button class="sf-primary-button" type="submit">Done</button>
+      </form>
+    </dialog>
+  </body>
+</html>

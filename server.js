@@ -1,12 +1,17 @@
 require("dotenv").config();
 
 const path = require("path");
+const fs = require("fs");
 const express = require("express");
 const db = require("./db");
 const taskRoutes = require("./routes/tasks");
 
 const app = express();
 const port = Number(process.env.PORT) || 3000;
+const frontendDirectory = [
+  path.join(__dirname, "..", "frontend"),
+  path.join(__dirname, "frontend"),
+].find((directory) => fs.existsSync(path.join(directory, "index.html")));
 
 async function ensureTaskSchema() {
   await db.query(
@@ -46,7 +51,9 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 app.use("/api/tasks", taskRoutes);
-app.use(express.static(path.join(__dirname, "..", "frontend")));
+if (frontendDirectory) {
+  app.use(express.static(frontendDirectory));
+}
 
 // Keep API errors in JSON so the frontend can show a useful message.
 app.use((error, req, res, next) => {
@@ -59,6 +66,14 @@ app.use((error, req, res, next) => {
 });
 
 async function startServer() {
+  if (!frontendDirectory) {
+    console.error(
+      "Could not find frontend/index.html. Include the frontend folder in the deployment."
+    );
+    process.exitCode = 1;
+    return;
+  }
+
   const missingSettings = ["DB_HOST", "DB_USER", "DB_NAME"].filter(
     (setting) => !process.env[setting]?.trim()
   );
